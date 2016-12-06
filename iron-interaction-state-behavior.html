@@ -1,0 +1,44 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<script>
+    (function() {
+
+        /**
+         *   `Polymer.IronInteractionStateBehavior` is meant to be applied on iron-input level. It keeps track of the following states:
+         *
+         *   - dirty: True when user has focused and left(blurred) the field
+         *   - touched: True when user has typed in something in the input field
+         *
+         *    For the outside world, these values may only be read. In fundamental form components and behaviors (indirectly) using the 'UicInteractionStateBehavior'
+         *    (for instance the 'UicValidationTriggerBehavior' ) these read only values may be altered (to this with _setDirty and _setTouched respectively)
+         *
+         *    @demo demo/index.html
+         *    @element iron-interaction-state-behavior
+         *    @polymerBehavior
+         */
+
+        Polymer.IronInteractionStateBehavior = {
+
+            properties: {
+
+                /* True when user has focused and left(blurred) the field */
+                touched: {
+                    type: Boolean,
+                    readOnly:true,
+                    value:false
+                },
+
+                /* True when user has typed in something in the input field */
+                dirty: {
+                    type: Boolean,
+                    readOnly:true,
+                    value:false
+                }
+
+            }
+
+
+        };
+
+    }());
+</script>
