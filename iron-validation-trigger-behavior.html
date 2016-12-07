@@ -17,45 +17,35 @@
      *    @element iron-validation-trigger-behavior
      */
 
-    // TODO: decide fi this should be placed in validatableBehavior
+    // TODO: decide if this should be placed in validatableBehavior
 
 
     /* @polymerBehavior */
     Polymer.IronValidationTriggerBehavior = {
 
-//        get _validationInputs() {
-//            return this.querySelectorAll('[is="iron-input"]') || this.queryAllEffectiveChildren('[is="iron-input"]');
-//        },
-
         attached: function () {
             var input = this;
 
-//            [].forEach.call(this._validationInputs, function (input) {
-                // Setup event handlers
-                input.addEventListener('blur', this._valTrigLeave);
-                input.addEventListener('bind-value-changed', this._valTrigOnValueChange.bind(this));
+            // Setup event handlers
+            input.addEventListener('blur', this._valTrigLeave);
+            input.addEventListener('bind-value-changed', this._valTrigOnValueChange.bind(this));
 
-                // Validate prefilled inputs
-                if (input.value != '') {
-                    input.validate();
-                    input._setTouched(true); // treat this as if it were touched, so that validation will be performed on keyup
-                }
-
-//            }.bind(this));
+            // Validate prefilled inputs
+            if (input.value != '') {
+                input.validate();
+                input._setTouched(true); // treat this as if it were touched, so that validation will be performed on keyup
+            }
         },
 
         detached: function () {
             var input = this;
 
             // Clean up event handlers
-//            [].forEach.call(this._validationInputs, function (input) {
-                input.removeEventListener('blur', this._valTrigLeave);
-                input.removeEventListener('bind-value-changed', this._valTrigOnValueChange);
-//            }.bind(this));
+            input.removeEventListener('blur', this._valTrigLeave);
+            input.removeEventListener('bind-value-changed', this._valTrigOnValueChange);
         },
 
         _valTrigLeave: function (e) {
-//            var input = Polymer.dom(e).rootTarget;
             var input = e.target;
             if (input.dirty) {
                 input.validate();
@@ -65,7 +55,6 @@
         },
 
         _valTrigOnValueChange: function (e) {
-//            var input = Polymer.dom(e).rootTarget;
             var input = e.target;
             input._setDirty(true);
 
