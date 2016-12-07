@@ -1,0 +1,81 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<script>
+
+    /**
+     *   `Polymer.IronValidationTriggerBehavior` is behavior that decides when form input will be validated.
+     *    The behavior needs to be applied to elements wrapping an iron-input.
+     *    It is up to elements implementing this behavior to decide when error messages will be shown.
+     *
+     *    Validation of a form field will be triggered when the user:
+     *    <ol>
+     *       <li>leaves a form field -> This will be applied when input is still 'untouched'</li>
+     *       <li>on keyup (actually, on the input event) -> This will be applied when input already 'touched'</li>
+     *    </ol>
+     *
+     *    @demo demo/index.html
+     *    @element iron-validation-trigger-behavior
+     */
+
+    // TODO: decide fi this should be placed in validatableBehavior
+
+
+    /* @polymerBehavior */
+    Polymer.IronValidationTriggerBehavior = {
+
+//        get _validationInputs() {
+//            return this.querySelectorAll('[is="iron-input"]') || this.queryAllEffectiveChildren('[is="iron-input"]');
+//        },
+
+        attached: function () {
+            var input = this;
+
+//            [].forEach.call(this._validationInputs, function (input) {
+                // Setup event handlers
+                input.addEventListener('blur', this._valTrigLeave);
+                input.addEventListener('bind-value-changed', this._valTrigOnValueChange.bind(this));
+
+                // Validate prefilled inputs
+                if (input.value != '') {
+                    input.validate();
+                    input._setTouched(true); // treat this as if it were touched, so that validation will be performed on keyup
+                }
+
+//            }.bind(this));
+        },
+
+        detached: function () {
+            var input = this;
+
+            // Clean up event handlers
+//            [].forEach.call(this._validationInputs, function (input) {
+                input.removeEventListener('blur', this._valTrigLeave);
+                input.removeEventListener('bind-value-changed', this._valTrigOnValueChange);
+//            }.bind(this));
+        },
+
+        _valTrigLeave: function (e) {
+//            var input = Polymer.dom(e).rootTarget;
+            var input = e.target;
+            if (input.dirty) {
+                input.validate();
+            }
+
+            input._setTouched(!!input.value); // Reset the touched state when user leaves a field without a value. On next interaction, user will start with a clean slave
+        },
+
+        _valTrigOnValueChange: function (e) {
+//            var input = Polymer.dom(e).rootTarget;
+            var input = e.target;
+            input._setDirty(true);
+
+            if (input.touched || input.invalid) {
+                this.debounce('validate', function () {
+                    input.validate();
+                }, 100);
+            }
+        }
+
+    };
+
+</script>

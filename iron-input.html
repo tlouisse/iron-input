@@ -12,6 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../iron-a11y-announcer/iron-a11y-announcer.html">
 <link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="iron-interaction-state-behavior.html">
+<link rel="import" href="iron-validation-trigger-behavior.html">
 
 <script>
 
@@ -57,7 +58,8 @@ is separate from validation, and `allowed-pattern` does not affect how the input
 
     behaviors: [
       Polymer.IronValidatableBehavior,
-      Polymer.IronInteractionStateBehavior
+      Polymer.IronInteractionStateBehavior,
+      Polymer.IronValidationTriggerBehavior
     ],
 
     properties: {

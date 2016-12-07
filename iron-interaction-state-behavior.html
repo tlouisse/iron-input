@@ -10,29 +10,35 @@
          *   - touched: True when user has typed in something in the input field
          *
          *    For the outside world, these values may only be read. In fundamental form components and behaviors (indirectly) using the 'UicInteractionStateBehavior'
-         *    (for instance the 'UicValidationTriggerBehavior' ) these read only values may be altered (to this with _setDirty and _setTouched respectively)
+         *    (for instance the 'UicValidationTriggerBehavior') these read only values may be altered (to this with _setDirty and _setTouched respectively)
          *
          *    @demo demo/index.html
          *    @element iron-interaction-state-behavior
          *    @polymerBehavior
          */
 
+
         Polymer.IronInteractionStateBehavior = {
 
             properties: {
 
-                /* True when user has focused and left(blurred) the field */
+                /**
+                 * True when user has focused and left(blurred) the field
+                 * Note this value can be reset when a user leaves(blurs) a field with no value at all being specified
+                 */
                 touched: {
                     type: Boolean,
-                    readOnly:true,
-                    value:false
+                    readOnly: true,
+                    value: false
                 },
 
-                /* True when user has typed in something in the input field */
+                /**
+                 * True when the value has changed (usually on bind-value-changed)
+                 */
                 dirty: {
                     type: Boolean,
-                    readOnly:true,
-                    value:false
+                    readOnly: true,
+                    value: false
                 }
 
             }
