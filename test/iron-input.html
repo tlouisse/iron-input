@@ -106,7 +106,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <test-fixture id="validation-trigger">
     <template>
-      <input is="iron-input" auto-validate>
+      <input is="iron-input" auto-validate pattern="[A-Za-z]*">
     </template>
   </test-fixture>
 
@@ -306,10 +306,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     suite('Validation trigger states', function() {
       // Quick integration test
-      test('it should inherit interaction states from validatable behavior', function() {
+      test('it should set validity states on blur events', function() {
         var input = fixture('validation-trigger');
-        assert.equal(input.dirty, false);
-        assert.equal(input.touched, false);
+        // Make sure value-changed is triggered (so under the hood input.dirty will be set to true)
+        input.bindValue = '000';
+
+        // Blur
+        sinon.spy(input, 'validate');
+        input.dispatchEvent(new Event('blur', {
+          'bubbles': true
+        }));
+        assert(input.validate.called);
+        assert.isTrue(input.invalid, 'input is validated and invalid');
       });
     });
 
