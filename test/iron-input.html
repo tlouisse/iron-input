@@ -104,6 +104,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </test-fixture>
 
+  <test-fixture id="validation-trigger">
+    <template>
+      <input is="iron-input" auto-validate>
+    </template>
+  </test-fixture>
+
   <script>
 
     suite('basic', function() {
@@ -287,6 +293,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         input.dispatchEvent(event);
       });
     });
+
+
+    suite('Interaction states', function() {
+      // Quick integration test
+      test('it should inherit interaction states from validatable behavior', function() {
+        var input = fixture('basic');
+        assert.equal(input.dirty, false);
+        assert.equal(input.touched, false);
+      });
+    });
+
+    suite('Validation trigger states', function() {
+      // Quick integration test
+      test('it should inherit interaction states from validatable behavior', function() {
+        var input = fixture('validation-trigger');
+        assert.equal(input.dirty, false);
+        assert.equal(input.touched, false);
+      });
+    });
+
   </script>
 
 </body>
